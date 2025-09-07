@@ -37,8 +37,11 @@ def parse_options
   [options[:file], header_type]
 end
 
-if __FILE__ == $0
-  file, header_type = parse_options
-  converter = Csv2dokuwikiTab::Converter.new(file, header_type)
-  converter.convert
-end
+
+#===
+# Main CLI
+
+file, header_type = parse_options
+converter = Csv2dokuwikiTab::Converter.new(file, header_type)
+converter.convert
+
