@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.authors = ["Shuji Shigenobu"]
   spec.email = ["sshigenobu@gmail.com"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
-  spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
-  spec.required_ruby_version = ">= 3.2.0"
+  spec.summary = "Convert CSV to DokuWiki table format"
+  spec.description = "This gem provides a command-line tool to convert CSV files into DokuWiki table format."
+  spec.homepage = "https://github.com/sshigenobu/csv2dokuwiki_tab"
+  spec.required_ruby_version = ">= 2.4.0"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
   spec.metadata["homepage_uri"] = spec.homepage
