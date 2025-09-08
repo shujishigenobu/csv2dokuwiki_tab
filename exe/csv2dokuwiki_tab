@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
-ruby ./csv2dokuwiki_tab.rb "$@"
+csv2dokuwiki_tab.rb
