@@ -1,16 +1,10 @@
 # Csv2dokuwikiTab
 
+[![Gem Version](https://badge.fury.io/rb/csv2dokuwiki_tab.svg)](https://badge.fury.io/rb/csv2dokuwiki_tab)
+
 Read CSV and convert to DokuWiki table format.
 
 ## Installation
-
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add csv2dokuwiki_tab
-```
-
-If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
 gem install csv2dokuwiki_tab
