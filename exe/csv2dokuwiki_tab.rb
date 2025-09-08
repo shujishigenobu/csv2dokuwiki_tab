@@ -25,8 +25,15 @@ def parse_options
         header_type = Csv2dokuwikiTab::HEADER_ROW
       end
     end
+    opts.on("-t", "--tab", "Tab-delimited text format (TSV) instead of CSV") do |t|
+      options[:tab] = t
+    end
     opts.on("-h", "--help", "Prints this help") do
       puts opts
+      exit
+    end
+    opts.on("-v", "--version", "Prints the version") do
+      puts Csv2dokuwikiTab::VERSION
       exit
     end
   end.parse!
@@ -34,14 +41,17 @@ def parse_options
     warn "Error: CSV file must be specified with -f"
     exit 1
   end
-  [options[:file], header_type]
+#  [options[:file], header_type, options[:tab]]
+  return { file: options[:file], header_type: header_type, tab: options[:tab] }
 end
 
 
 #===
 # Main CLI
 
-file, header_type = parse_options
-converter = Csv2dokuwikiTab::Converter.new(file, header_type)
+opt = parse_options
+p opt
+sep = opt[:tab] ? "\t" : ","
+converter = Csv2dokuwikiTab::Converter.new(opt[:file], opt[:header_type], sep)
 converter.convert
 

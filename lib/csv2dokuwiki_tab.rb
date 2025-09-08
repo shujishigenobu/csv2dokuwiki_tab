@@ -22,14 +22,15 @@ module Csv2dokuwikiTab
   HEADER_BOTH = 3
 
   class Converter
-    def initialize(file, header_type=1)
+    def initialize(file, header_type=1, sep=",")
       @file = file
       @header_type = header_type
+      @sep = sep
     end
 
     def convert
       begin
-        CSV.foreach(@file).with_index do |row, idx|
+        CSV.foreach(@file, col_sep: @sep).with_index do |row, idx|
           next if row.all? { |x| x.nil? }
           if idx == 0
             print_header_row(row)
