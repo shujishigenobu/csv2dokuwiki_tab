@@ -7,7 +7,7 @@ def parse_options
   options = {}
   header_type = Csv2dokuwikiTab::HEADER_ROW
   OptionParser.new do |opts|
-    opts.banner = "Usage: csv_to_dokuwiki_tab.rb [options]"
+  opts.banner = "Usage: csv_to_dokuwiki_tab.rb [options]\n  (use -f - for STDIN)"
 
     opts.on("-f FILE", "--file FILE", "CSV file to convert") do |f|
       options[:file] = f
@@ -40,7 +40,7 @@ def parse_options
     end
   end.parse!
   unless options[:file]
-    warn "Error: CSV file must be specified with -f"
+    warn "Error: CSV file must be specified with -f (use -f - for STDIN)"
     exit 1
   end
 #  [options[:file], header_type, options[:tab]]

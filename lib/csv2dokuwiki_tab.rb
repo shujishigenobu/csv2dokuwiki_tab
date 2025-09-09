@@ -23,14 +23,19 @@ module Csv2dokuwikiTab
 
   class Converter
     def initialize(file, header_type=1, sep=",")
-      @file = file
       @header_type = header_type
       @sep = sep
+      @io =
+        if file.nil? || file == "-"
+          $stdin
+        else
+          File.open(file, "r")
+        end
     end
 
     def convert
       begin
-        CSV.foreach(@file, col_sep: @sep).with_index do |row, idx|
+        CSV.new(@io, col_sep: @sep).each_with_index do |row, idx|
           next if row.all? { |x| x.nil? }
           if idx == 0
             print_header_row(row)
@@ -39,7 +44,7 @@ module Csv2dokuwikiTab
           end
         end
       rescue Errno::ENOENT
-        warn "Error: File not found: #{@file}"
+        warn "Error: File not found"
         exit 1
       rescue CSV::MalformedCSVError => e
         warn "Error: Malformed CSV - #{e.message}"

@@ -25,3 +25,7 @@ Usage: csv_to_dokuwiki_tab.rb [options]
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/shujishigenobu/csv2dokuwiki_tab
+
+## License
+
+This repository is licensed under the [MIT License](./LICENSE). See the LICENSE file for details.
