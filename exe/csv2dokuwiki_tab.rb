@@ -52,7 +52,7 @@ end
 # Main CLI
 
 opt = parse_options
-p opt
+#p opt
 sep = opt[:tab] ? "\t" : ","
 converter = Csv2dokuwikiTab::Converter.new(opt[:file], opt[:header_type], sep)
 converter.convert
