@@ -11,8 +11,8 @@ require_relative "csv2dokuwiki_tab/version"
 ############################
 
 module Csv2dokuwikiTab
+
   class Error < StandardError; end
-  # Your code goes here...
 
   require "csv"
 
@@ -22,6 +22,11 @@ module Csv2dokuwikiTab
   HEADER_BOTH = 3
 
   class Converter
+
+    def self.escape(text)
+      text.to_s.gsub('|', '%%|%%').gsub('^', '%%^%%')
+    end
+
     def initialize(file, header_type=1, sep=",")
       @header_type = header_type
       @sep = sep
@@ -57,18 +62,18 @@ module Csv2dokuwikiTab
     def print_header_row(row)
       case @header_type
       when HEADER_ROW, HEADER_BOTH
-        puts "^" + row.map { |x| " #{x} " }.join("^") + "^"
+        puts "^" + row.map { |x| " #{Converter.escape(x)} " }.join("^") + "^"
       else
-        puts "|" + row.map { |x| " #{x} " }.join("|") + "|"
+        puts "|" + row.map { |x| " #{Converter.escape(x)} " }.join("|") + "|"
       end
     end
 
     def print_data_row(row)
       case @header_type
       when HEADER_COL, HEADER_BOTH
-        puts "^" + row[0].to_s + "^" + row[1..-1].map { |x| " #{x} " }.join("|") + "|"
+        puts "^" + row[0].to_s + "^" + row[1..-1].map { |x| " #{Converter.escape(x)} " }.join("|") + "|"
       else
-        puts "|" + row.map { |x| " #{x} " }.join("|") + "|"
+        puts "|" + row.map { |x| " #{Converter.escape(x)} " }.join("|") + "|"
       end
     end
   end

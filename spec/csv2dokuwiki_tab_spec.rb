@@ -2,13 +2,16 @@
 
 RSpec.describe Csv2dokuwikiTab do
   let(:csv_file) { "spec/test.csv" }
+  let(:csv_file2) { "spec/test2.csv" }
 
   before do
     File.write(csv_file, "Name,Age,Country\nAlice,30,USA\nBob,25,Canada\n")
+    File.write(csv_file2, "Name,Age,Address\nCharlie,35,UK|London\nDavid,40,Australia|Sydney\n")
   end
 
   after do
     File.delete(csv_file) if File.exist?(csv_file)
+    File.delete(csv_file2) if File.exist?(csv_file2)
   end
 
   it "has a version number" do
@@ -52,5 +55,15 @@ RSpec.describe Csv2dokuwikiTab do
     File.delete(tsv_file) if File.exist?(tsv_file)
   end
 
+  it 'converts CSV containing pipe characters to DokuWiki table format' do
+    output = StringIO.new
+    $stdout = output
+    table = Csv2dokuwikiTab::Converter.new(csv_file2, Csv2dokuwikiTab::HEADER_ROW)
+    table.convert
+    $stdout = STDOUT
+    expect(output.string).to include('^ Name ^ Age ^ Address ^')
+    expect(output.string).to include('| Charlie | 35 | UK%%|%%London |')
+    expect(output.string).to include('| David | 40 | Australia%%|%%Sydney |')
+  end
 
 end
